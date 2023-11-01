@@ -59,7 +59,7 @@ export const App = () => {
   const onFilterContacts = () => {
     // const { contacts, filter } = this.state;
     return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(filter.toLowerCase())
+      contact.name.toLowerCase().includes(filter.trim().toLowerCase())
     );
   };
 
