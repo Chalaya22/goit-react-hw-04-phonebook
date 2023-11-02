@@ -7,7 +7,7 @@ const ContactForm = ({ handleAddContact }) => {
 
   const handleInputChange = event => {
     const { name, value } = event.currentTarget;
-    // this.setState({ [name]: value });
+
     switch (name) {
       case 'name':
         setName(value);

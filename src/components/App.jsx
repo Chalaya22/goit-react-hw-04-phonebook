@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { nanoid } from 'nanoid';
 import ContactForm from './ContactForm';
 import ContactList from './ContactList';
@@ -12,22 +12,17 @@ const contactsData = [
 ];
 
 export const App = () => {
-  const [contacts, setContacts] = useState(contactsData);
+  const [contacts, setContacts] = useState(() => {
+    const contactsInString = localStorage.getItem('contacts');
+    const contactsIsParsed = JSON.parse(contactsInString) ?? contactsData;
+    return contactsIsParsed;
+  });
   const [filter, setFilter] = useState(' ');
 
-  // componentDidMount() {
-  //   const contactsInString = localStorage.getItem('contacts');
-  //   const contactsIsParsed =
-  //     JSON.parse(contactsInString) ?? this.state.contacts;
-
-  //   this.setState({ contacts: contactsIsParsed });
-  // }
-  // componentDidUpdate(_, prevState) {
-  //   if (prevState.contacts !== this.state.contacts) {
-  //     const contactsInString = JSON.stringify(this.state.contacts);
-  //     localStorage.setItem('contacts', contactsInString);
-  //   }
-  // }
+  useEffect(() => {
+    const contactsInString = JSON.stringify(contacts);
+    localStorage.setItem('contacts', contactsInString);
+  }, [contacts]);
 
   //add
   const handleAddContact = contactList => {
